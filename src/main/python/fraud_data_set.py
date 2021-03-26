@@ -1,11 +1,13 @@
-from h2o import h2o
+import h2o
+from h2o.estimators import H2ORandomForestEstimator
 
 h2o.init()
 h2o.remove_all()
+# Kaggle: https://www.kaggle.com/mlg-ulb/creditcardfraud
 
-fraud_data_frame = h2o.import_file(path="/Users/yalcin.yenigun/Documents/GDG/creditcard.csv")
+fraud_data_frame = h2o.import_file(path="")
 
-random_forest_model = h2o.H2ORandomForestEstimator(
+random_forest_model = H2ORandomForestEstimator(
     model_id="FraudDetectionModel",
     ntrees=10,
     max_depth=5,
@@ -39,4 +41,4 @@ random_forest_model.train(x=continuous_feature_columns,
                           y='Class',
                           training_frame=fraud_data_frame)
 
-h2o.download_pojo(random_forest_model, '../java/com/iyzipay/h2o/', get_jar=False)
+h2o.download_pojo(random_forest_model, '../java/com/mymodel/h2o/', get_jar=False)
